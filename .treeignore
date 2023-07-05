@@ -1,0 +1,12 @@
+.git
+.vs
+.idea
+logs
+src
+script
+target
+bin
+obj
+Properties
+
+

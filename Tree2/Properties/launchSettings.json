@@ -1,8 +1,8 @@
 {
   "profiles": {
     "Tree2": {
-      "commandName": "Project",
-      "commandLineArgs": "D:\\project\\thin\\rxcom-platform"
+        "commandName": "Project",
+        "commandLineArgs": "D:\\.netsource\\Tree2"
     }
   }
 }
