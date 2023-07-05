@@ -29,3 +29,16 @@ tree2.exe D:\.netsource\Tree2 3 2
 |Tree2              |       |
 |__images              |       |
 |__Tree2              |主程序       |
+
+
+
+# 文件说明
+.treeignore 
+存放忽略的文件夹，在根目录下存放即可
+
+
+.treeattributes
+存放于各目录下，用于标识目录的功能说明
+目前有两行
+第一行为版本号，目前为1
+第二行为文件夹描述
