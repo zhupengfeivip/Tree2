@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime;
+using System.Xml;
 
 namespace Tree2
 {
@@ -39,6 +40,9 @@ namespace Tree2
             DirInfo root = new DirInfo();
             root.Depth = 0;
             root.Name = Path.GetFileName(path);
+            root.Description = ReadTreeAttr(path);
+            if (root.Description.Length == 0)
+                root.Description = ReadJavaPomXml(path);
 
             string[] dirs = System.IO.Directory.GetDirectories(path);
             List<DirInfo> list = new List<DirInfo>();
@@ -108,6 +112,8 @@ namespace Tree2
                 dirInfo.Depth = root.Depth + 1;
                 dirInfo.Name = subDirName;
                 dirInfo.Description = ReadTreeAttr(dir);
+                if(dirInfo.Description.Length == 0)
+                    dirInfo.Description = ReadJavaPomXml(dir); 
                 GetDir(dir, ref dirInfo);
                 root.ChildDirs.Add(dirInfo);
 
@@ -185,6 +191,41 @@ namespace Tree2
             }
         }
 
+        static string ReadJavaPomXml(string path)
+        {
+            string filePath = path + "//pom.xml";
+            if (File.Exists(filePath) == false) return "";
+            // 创建XmlDocument对象
+            XmlDocument xmlDoc = new XmlDocument();
 
+            try
+            {
+                // 加载XML文件
+                xmlDoc.Load(filePath);
+
+                // 获取根节点
+                XmlNode root = xmlDoc.DocumentElement;
+
+                // 遍历根节点下的所有子节点
+                foreach (XmlNode node in root.ChildNodes)
+                {
+                    // 在这里处理每个子节点的逻辑
+                    string nodeName = node.Name;
+                    string nodeValue = node.InnerText;
+
+                    if (nodeName == "description")
+                        return nodeValue;
+                    //Console.WriteLine("节点名：" + nodeName);
+                    //Console.WriteLine("节点值：" + nodeValue);
+                    //Console.WriteLine();
+                }
+                return "";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("解析XML文件出错：" + e.Message);
+                return "";
+            }
+        }
     }
 }
