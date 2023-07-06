@@ -42,3 +42,6 @@ tree2.exe D:\.netsource\Tree2 3 2
 目前有两行
 第一行为版本号，目前为1
 第二行为文件夹描述
+
+# 功能说明
+支持自动读取java的pom.xml中的Description字段。
